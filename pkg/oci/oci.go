@@ -15,7 +15,7 @@ func GetDefaultSeccompProfile(listenerPath string) *specs.LinuxSeccomp {
 		ListenerPath:  listenerPath,
 		Syscalls: []specs.LinuxSyscall{
 			{
-				Names:  []string{"bind", "close", "connect", "sendmsg", "sendto", "setsockopt"},
+				Names:  []string{"bind", "close", "connect", "sendmsg", "sendto", "setsockopt", "ioctl", "fcntl"},
 				Action: specs.ActNotify,
 			},
 		},

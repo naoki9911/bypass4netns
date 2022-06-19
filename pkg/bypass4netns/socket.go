@@ -15,6 +15,16 @@ type socketOption struct {
 	optlen  uint64
 }
 
+type fcntlOption struct {
+	cmd   uint64
+	value uint64
+}
+
+type ioctlOption struct {
+	req   uint64
+	value uint64
+}
+
 type socketState int
 
 const (
@@ -35,11 +45,14 @@ type socketStatus struct {
 
 type socketInfo struct {
 	options map[string][]socketOption
+	fcntl   map[string][]fcntlOption
+	ioctl   map[string][]ioctlOption
 	status  map[string]socketStatus
 }
 
 // configureSocket set recorded socket options.
 func (info *socketInfo) configureSocket(ctx *context, sockfd int) error {
+	logrus.Debugf("configureSocket")
 	key := fmt.Sprintf("%d:%d", ctx.req.Pid, ctx.req.Data.Args[0])
 	optValues, ok := info.options[key]
 	if !ok {
@@ -51,6 +64,30 @@ func (info *socketInfo) configureSocket(ctx *context, sockfd int) error {
 			return fmt.Errorf("setsockopt failed(%v): %s", optVal, errno)
 		}
 		logrus.Debugf("configured socket option pid=%d sockfd=%d (%v)", ctx.req.Pid, sockfd, optVal)
+	}
+
+	fcntlValues, ok := info.fcntl[key]
+	if !ok {
+		return nil
+	}
+	for _, fcntlVal := range fcntlValues {
+		_, _, errno := syscall.Syscall(syscall.SYS_FCNTL, uintptr(sockfd), uintptr(fcntlVal.cmd), uintptr(fcntlVal.value))
+		if errno != 0 {
+			return fmt.Errorf("fnctl failed(%v): %s", fcntlVal, errno)
+		}
+		logrus.Debugf("configured socket fcntl pid=%d sockfd=%d (%v)", ctx.req.Pid, sockfd, fcntlVal)
+	}
+
+	ioctlValues, ok := info.ioctl[key]
+	if !ok {
+		return nil
+	}
+	for _, ioctlVal := range ioctlValues {
+		_, _, errno := syscall.Syscall(syscall.SYS_FCNTL, uintptr(sockfd), uintptr(ioctlVal.req), uintptr(ioctlVal.value))
+		if errno != 0 {
+			return fmt.Errorf("ioctl failed(%v): %s", ioctlVal, errno)
+		}
+		logrus.Debugf("configured socket ioctl pid=%d sockfd=%d (%v)", ctx.req.Pid, sockfd, ioctlVal)
 	}
 
 	return nil
@@ -82,6 +119,50 @@ func (info *socketInfo) recordSocketOption(ctx *context, logger *logrus.Entry) e
 	info.options[key] = append(info.options[key], value)
 
 	logger.Debugf("recorded socket option sockfd=%d level=%d optname=%d optval=%v optlen=%d", sockfd, level, optname, optval, optlen)
+	return nil
+}
+
+// recordSocketOption records socket option.
+func (info *socketInfo) recordFcntl(ctx *context, logger *logrus.Entry) error {
+	sockfd := ctx.req.Data.Args[0]
+	cmd := ctx.req.Data.Args[1]
+	value := ctx.req.Data.Args[2]
+
+	key := fmt.Sprintf("%d:%d", ctx.req.Pid, sockfd)
+	_, ok := info.fcntl[key]
+	if !ok {
+		info.fcntl[key] = make([]fcntlOption, 0)
+	}
+
+	option := fcntlOption{
+		cmd:   cmd,
+		value: value,
+	}
+	info.fcntl[key] = append(info.fcntl[key], option)
+
+	logger.Debugf("recorded fcntl sockfd=%d cmd=%d value=%d", sockfd, cmd, value)
+	return nil
+}
+
+// recordSocketOption records socket option.
+func (info *socketInfo) recordIoctl(ctx *context, logger *logrus.Entry) error {
+	sockfd := ctx.req.Data.Args[0]
+	req := ctx.req.Data.Args[1]
+	value := ctx.req.Data.Args[2]
+
+	key := fmt.Sprintf("%d:%d", ctx.req.Pid, sockfd)
+	_, ok := info.ioctl[key]
+	if !ok {
+		info.ioctl[key] = make([]ioctlOption, 0)
+	}
+
+	option := ioctlOption{
+		req:   req,
+		value: value,
+	}
+	info.ioctl[key] = append(info.ioctl[key], option)
+
+	logger.Debugf("recorded ioctl sockfd=%d req=%d value=%d", sockfd, req, value)
 	return nil
 }
 

@@ -595,6 +595,25 @@ func (h *notifHandler) handleSysSetsockopt(ctx *context) {
 	}
 }
 
+func (h *notifHandler) handleSysFcntl(ctx *context) {
+	logger := logrus.WithFields(logrus.Fields{"syscall": "fcntl", "pid": ctx.req.Pid, "sockfd": ctx.req.Data.Args[0]})
+	logger.Debugf("fcntl")
+	//cmd := ctx.req.Data.Args[1]
+	err := h.socketInfo.recordFcntl(ctx, logger)
+	if err != nil {
+		logger.Errorf("recordFcntl failed: %s", err)
+	}
+}
+
+func (h *notifHandler) handleSysIoctl(ctx *context) {
+	logger := logrus.WithFields(logrus.Fields{"syscall": "ioctl", "pid": ctx.req.Pid, "sockfd": ctx.req.Data.Args[0]})
+	logger.Debugf("ioctl")
+	err := h.socketInfo.recordIoctl(ctx, logger)
+	if err != nil {
+		logger.Errorf("recordIoctl failed: %s", err)
+	}
+}
+
 // handleReq handles seccomp notif requests and configures responses.
 func (h *notifHandler) handleReq(ctx *context) {
 	syscallName, err := ctx.req.Data.Syscall.GetName()
@@ -621,6 +640,10 @@ func (h *notifHandler) handleReq(ctx *context) {
 		h.handleSysSendto(ctx)
 	case "setsockopt":
 		h.handleSysSetsockopt(ctx)
+	case "fcntl":
+		h.handleSysFcntl(ctx)
+	case "ioctl":
+		h.handleSysIoctl(ctx)
 	default:
 		logrus.Errorf("Unknown syscall %q", syscallName)
 		// TODO: error handle
@@ -735,6 +758,8 @@ func (h *Handler) newNotifHandler(fd uintptr) *notifHandler {
 		forwardingPorts: map[int]ForwardPortMapping{},
 		socketInfo: socketInfo{
 			options: map[string][]socketOption{},
+			fcntl:   map[string][]fcntlOption{},
+			ioctl:   map[string][]ioctlOption{},
 			status:  map[string]socketStatus{},
 		},
 	}
