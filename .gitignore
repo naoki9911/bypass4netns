@@ -2,3 +2,4 @@
 /bypass4netnsd
 *~
 /.vagrant
+*.log
