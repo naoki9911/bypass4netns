@@ -22,7 +22,7 @@ type fcntlOption struct {
 
 type ioctlOption struct {
 	req   uint64
-	value uint64
+	value []byte
 }
 
 type socketState int
@@ -83,7 +83,7 @@ func (info *socketInfo) configureSocket(ctx *context, sockfd int) error {
 		return nil
 	}
 	for _, ioctlVal := range ioctlValues {
-		_, _, errno := syscall.Syscall(syscall.SYS_FCNTL, uintptr(sockfd), uintptr(ioctlVal.req), uintptr(ioctlVal.value))
+		_, _, errno := syscall.Syscall(syscall.SYS_IOCTL, uintptr(sockfd), uintptr(ioctlVal.req), uintptr(unsafe.Pointer(&ioctlVal.value[0])))
 		if errno != 0 {
 			return fmt.Errorf("ioctl failed(%v): %s", ioctlVal, errno)
 		}
@@ -156,9 +156,14 @@ func (info *socketInfo) recordIoctl(ctx *context, logger *logrus.Entry) error {
 		info.ioctl[key] = make([]ioctlOption, 0)
 	}
 
+	buf, err := readProcMem(ctx.req.Pid, value, 4)
+	if err != nil {
+		return err
+	}
+
 	option := ioctlOption{
 		req:   req,
-		value: value,
+		value: buf,
 	}
 	info.ioctl[key] = append(info.ioctl[key], option)
 
