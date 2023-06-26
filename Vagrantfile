@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/impish64"
+  config.vm.box = "ubuntu/jammy64"
   memory = 4096
   cpus = 2
   config.vm.provider :virtualbox do |v|
@@ -19,9 +19,8 @@ Vagrant.configure("2") do |config|
     #!/bin/bash
     set -eu -o pipefail
 
-    NERDCTL_VERSION="0.16.1"
-    NERDCTL_GIT_HASH="1b91648394def2f350e271d0ab29bacc437c3f9e"
-    ALPINE_IMAGE="public.ecr.aws/docker/library/alpine:3.15"
+    NERDCTL_VERSION="0.22.2"
+    ALPINE_IMAGE="public.ecr.aws/docker/library/alpine:3.16"
     echo "===== Prepare ====="
     (
      set -x
@@ -29,24 +28,16 @@ Vagrant.configure("2") do |config|
      sudo DEBIAN_FRONTEND=noninteractive apt-get install -q -y build-essential curl dbus-user-session iperf3 libseccomp-dev uidmap golang python3
      systemctl --user start dbus
 
-     cd /vagrant
-     make
-     sudo make install
-
      curl -fsSL https://github.com/containerd/nerdctl/releases/download/v${NERDCTL_VERSION}/nerdctl-full-${NERDCTL_VERSION}-linux-amd64.tar.gz | sudo tar Cxzv /usr/local
      containerd-rootless-setuptool.sh install
      containerd-rootless-setuptool.sh install-buildkit
-
-     # replace nerdctl with bypass4netns patched one (TODO: remove this after the release of nerdctl v0.17)
-     cd /tmp
-     git clone https://github.com/containerd/nerdctl
-     cd nerdctl
-     git checkout $NERDCTL_GIT_HASH
-     make
-     sudo cp _output/nerdctl /usr/local/bin/.
-
      nerdctl info
      nerdctl pull --quiet "${ALPINE_IMAGE}"
+
+     cd /vagrant
+     make
+     sudo rm -f /usr/local/bin/bypass4netns*
+     sudo make install
 
      hostname -I | awk '{print $1}' | tee /tmp/host_ip
      /vagrant/test/seccomp.json.sh | tee /tmp/seccomp.json
