@@ -418,7 +418,11 @@ func (h *notifHandler) registerSocket(pid int, sockfd int, syscallName string) (
 		sock.state = NotBypassable
 		logger.Debugf("failed to get socket args err=%q", err)
 	} else {
-		if sockDomain != syscall.AF_INET && sockDomain != syscall.AF_INET6 {
+		if sockDomain == syscall.AF_UNIX {
+			logger.Infof("connection is UDS")
+			sock.state = NotBypassable
+			sock.uds = true
+		} else if sockDomain != syscall.AF_INET && sockDomain != syscall.AF_INET6 {
 			// non IP sockets are not handled.
 			sock.state = NotBypassable
 			logger.Debugf("socket domain=0x%x", sockDomain)
@@ -525,6 +529,12 @@ func (h *notifHandler) handleReq(ctx *context) {
 			logrus.Errorf("failed to register socket pid %d sockfd %d: %s", pid, sockfd, err)
 			return
 		}
+	}
+
+	if sock.uds {
+		logrus.Infof("%s called", syscallName)
+		ctx.resp.Flags &= (^uint32(SeccompUserNotifFlagContinue))
+		return
 	}
 
 	switch sock.state {

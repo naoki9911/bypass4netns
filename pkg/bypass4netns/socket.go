@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"net"
+	"os"
 	"strconv"
 	"strings"
 	"syscall"
@@ -81,6 +82,7 @@ type socketStatus struct {
 	fcntlOptions  []fcntlOption
 
 	logger *logrus.Entry
+	uds    bool
 }
 
 func newSocketStatus(pid int, sockfd int, sockDomain, sockType, sockProto int) *socketStatus {
@@ -220,74 +222,123 @@ func (ss *socketStatus) handleSysConnect(handler *notifHandler, ctx *context) {
 		return
 	}
 
-	sockfdOnHost, err := syscall.Socket(ss.sockDomain, ss.sockType, ss.sockProto)
-	if err != nil {
-		ss.logger.Errorf("failed to create socket: %q", err)
-		ss.state = NotBypassable
-		return
-	}
-	defer syscall.Close(sockfdOnHost)
-
-	err = ss.configureSocket(sockfdOnHost)
-	if err != nil {
-		ss.logger.Errorf("failed to configure socket: %q", err)
-		ss.state = NotBypassable
-		return
-	}
-
-	addfd := seccompNotifAddFd{
-		id:         ctx.req.ID,
-		flags:      SeccompAddFdFlagSetFd,
-		srcfd:      uint32(sockfdOnHost),
-		newfd:      uint32(ctx.req.Data.Args[0]),
-		newfdFlags: 0,
-	}
-
-	err = addfd.ioctlNotifAddFd(ctx.notifFd)
-	if err != nil {
-		ss.logger.Errorf("ioctl NotifAddFd failed: %q", err)
-		ss.state = NotBypassable
-		return
-	}
-
-	if connectToLoopback || connectToInterface || connectToOtherBypassedContainer {
-		p := make([]byte, 2)
-		binary.BigEndian.PutUint16(p, uint16(fwdPort.HostPort))
-		// writing host port at sock_addr's port offset
-		// TODO: should we return dummy value when getpeername(2) is called?
-		err = handler.writeProcMem(ss.pid, ctx.req.Data.Args[1]+2, p)
+	if destAddr.Port == 8080 {
+		sockfdUds, err := syscall.Socket(syscall.AF_UNIX, syscall.SOCK_STREAM, 0)
 		if err != nil {
-			ss.logger.Errorf("failed to rewrite destination port: %q", err)
-			ss.state = Error
+			ss.logger.Errorf("failed to create uds: %q", err)
+			ss.state = NotBypassable
 			return
 		}
-		ss.logger.Infof("destination's port %d is rewritten to host-side port %d", ss.addr.Port, fwdPort.HostPort)
-	}
+		defer syscall.Close(sockfdUds)
 
-	if connectToInterface || connectToOtherBypassedContainer {
-		// writing host's loopback address to connect to bypassed socket at sock_addr's address offset
-		// TODO: should we return dummy value when getpeername(2) is called?
-		switch destAddr.Family {
-		case syscall.AF_INET:
-			newDestAddr = newDestAddr.To4()
-			err = handler.writeProcMem(ss.pid, ctx.req.Data.Args[1]+4, newDestAddr[0:4])
-		case syscall.AF_INET6:
-			newDestAddr = newDestAddr.To16()
-			err = handler.writeProcMem(ss.pid, ctx.req.Data.Args[1]+8, newDestAddr[0:16])
-		default:
-			ss.logger.Errorf("unexpected destination address family %d", destAddr.Family)
-			ss.state = Error
-			return
-		}
+		err = ss.configureSocket(sockfdUds, false)
 		if err != nil {
-			ss.logger.Errorf("failed to rewrite destination address: %q", err)
-			ss.state = Error
+			ss.logger.Errorf("failed to configure uds: %q", err)
+			ss.state = NotBypassable
 			return
 		}
 
-		ss.logger.Infof("destination address %s is rewritten to %s", destAddr.IP, newDestAddr)
-	}
+		bindAddr := syscall.SockaddrUnix{
+			Name: fmt.Sprintf("/tmp/b4ns-con.sock"),
+		}
+		err = syscall.Connect(sockfdUds, &bindAddr)
+		if err != nil {
+			ss.logger.Errorf("failed to connect to uds: %q", err)
+			ss.state = NotBypassable
+			return
+		}
 
+		addfd := seccompNotifAddFd{
+			id:    ctx.req.ID,
+			flags: SeccompAddFdFlagSetFd,
+			//srcfd:      uint32(sockfdOnHost),
+			srcfd:      uint32(sockfdUds),
+			newfd:      uint32(ctx.req.Data.Args[0]),
+			newfdFlags: 0,
+		}
+
+		err = addfd.ioctlNotifAddFd(ctx.notifFd)
+		if err != nil {
+			ss.logger.Errorf("ioctl NotifAddFd failed: %s", err)
+			ss.state = NotBypassable
+			return
+		}
+		ss.uds = true
+
+		ss.state = Bypassed
+		ss.logger.Infof("bypassed connect uds for %d:%d is done", fwdPort.HostPort, fwdPort.ChildPort)
+
+		ctx.resp.Flags &= (^uint32(SeccompUserNotifFlagContinue))
+	} else {
+		sockfdOnHost, err := syscall.Socket(ss.sockDomain, ss.sockType, ss.sockProto)
+		if err != nil {
+			ss.logger.Errorf("failed to create socket: %q", err)
+			ss.state = NotBypassable
+			return
+		}
+		defer syscall.Close(sockfdOnHost)
+
+		err = ss.configureSocket(sockfdOnHost, false)
+		if err != nil {
+			ss.logger.Errorf("failed to configure socket: %q", err)
+			ss.state = NotBypassable
+			return
+		}
+
+		addfd := seccompNotifAddFd{
+			id:         ctx.req.ID,
+			flags:      SeccompAddFdFlagSetFd,
+			srcfd:      uint32(sockfdOnHost),
+			newfd:      uint32(ctx.req.Data.Args[0]),
+			newfdFlags: 0,
+		}
+
+		err = addfd.ioctlNotifAddFd(ctx.notifFd)
+		if err != nil {
+			ss.logger.Errorf("ioctl NotifAddFd failed: %q", err)
+			ss.state = NotBypassable
+			return
+		}
+
+		if connectToLoopback || connectToInterface || connectToOtherBypassedContainer {
+			p := make([]byte, 2)
+			binary.BigEndian.PutUint16(p, uint16(fwdPort.HostPort))
+			// writing host port at sock_addr's port offset
+			// TODO: should we return dummy value when getpeername(2) is called?
+			err = handler.writeProcMem(ss.pid, ctx.req.Data.Args[1]+2, p)
+			if err != nil {
+				ss.logger.Errorf("failed to rewrite destination port: %q", err)
+				ss.state = Error
+				return
+			}
+			ss.logger.Infof("destination's port %d is rewritten to host-side port %d", ss.addr.Port, fwdPort.HostPort)
+		}
+
+		if connectToInterface || connectToOtherBypassedContainer {
+			// writing host's loopback address to connect to bypassed socket at sock_addr's address offset
+			// TODO: should we return dummy value when getpeername(2) is called?
+			switch destAddr.Family {
+			case syscall.AF_INET:
+				newDestAddr = newDestAddr.To4()
+				err = handler.writeProcMem(ss.pid, ctx.req.Data.Args[1]+4, newDestAddr[0:4])
+			case syscall.AF_INET6:
+				newDestAddr = newDestAddr.To16()
+				err = handler.writeProcMem(ss.pid, ctx.req.Data.Args[1]+8, newDestAddr[0:16])
+			default:
+				ss.logger.Errorf("unexpected destination address family %d", destAddr.Family)
+				ss.state = Error
+				return
+			}
+			if err != nil {
+				ss.logger.Errorf("failed to rewrite destination address: %q", err)
+				ss.state = Error
+				return
+			}
+
+			ss.logger.Infof("destination address %s is rewritten to %s", destAddr.IP, newDestAddr)
+		}
+
+	}
 	ss.state = Bypassed
 	ss.logger.Infof("bypassed connect socket destAddr=%s", ss.addr)
 }
@@ -319,7 +370,7 @@ func (ss *socketStatus) handleSysBind(pid int, handler *notifHandler, ctx *conte
 	}
 	defer syscall.Close(sockfdOnHost)
 
-	err = ss.configureSocket(sockfdOnHost)
+	err = ss.configureSocket(sockfdOnHost, false)
 	if err != nil {
 		ss.logger.Errorf("failed to configure socket: %q", err)
 		ss.state = NotBypassable
@@ -357,13 +408,23 @@ func (ss *socketStatus) handleSysBind(pid int, handler *notifHandler, ctx *conte
 		return
 	}
 
+	udsSockfd, err := ss.prepareUnixDomainSocket()
+	if err != nil {
+		ss.logger.Errorf("uds failed: %q", err)
+		return
+	}
+	defer syscall.Close(udsSockfd)
+	ss.logger.Infof("created uds")
+
 	addfd := seccompNotifAddFd{
-		id:         ctx.req.ID,
-		flags:      SeccompAddFdFlagSetFd,
-		srcfd:      uint32(sockfdOnHost),
+		id:    ctx.req.ID,
+		flags: SeccompAddFdFlagSetFd,
+		//srcfd:      uint32(sockfdOnHost),
+		srcfd:      uint32(udsSockfd),
 		newfd:      uint32(ctx.req.Data.Args[0]),
 		newfdFlags: 0,
 	}
+	ss.uds = true
 
 	err = addfd.ioctlNotifAddFd(ctx.notifFd)
 	if err != nil {
@@ -408,8 +469,18 @@ func (ss *socketStatus) handleSysGetpeername(handler *notifHandler, ctx *context
 	ss.logger.Infof("rewrite getpeername() address to %s", ss.addr)
 }
 
-func (ss *socketStatus) configureSocket(sockfd int) error {
+func (ss *socketStatus) configureSocket(sockfd int, uds bool) error {
 	for _, optVal := range ss.socketOptions {
+		ignore := false
+		if uds {
+			// ignore
+			if optVal.level == syscall.SOL_IPV6 {
+				ignore = true
+			}
+		}
+		if ignore {
+			continue
+		}
 		_, _, errno := syscall.Syscall6(syscall.SYS_SETSOCKOPT, uintptr(sockfd), uintptr(optVal.level), uintptr(optVal.optname), uintptr(unsafe.Pointer(&optVal.optval[0])), uintptr(optVal.optlen), 0)
 		if errno != 0 {
 			return fmt.Errorf("setsockopt failed(%v): %s", optVal, errno)
@@ -426,4 +497,27 @@ func (ss *socketStatus) configureSocket(sockfd int) error {
 	}
 
 	return nil
+}
+
+func (ss *socketStatus) prepareUnixDomainSocket() (int, error) {
+	sockfd, err := syscall.Socket(syscall.AF_UNIX, syscall.SOCK_STREAM, 0)
+	if err != nil {
+		return 0, err
+	}
+
+	err = ss.configureSocket(sockfd, true)
+	if err != nil {
+		return 0, err
+	}
+
+	os.RemoveAll("/tmp/b4ns-con.sock")
+	bindAddr := syscall.SockaddrUnix{
+		Name: fmt.Sprintf("/tmp/b4ns-con.sock"),
+	}
+	err = syscall.Bind(sockfd, &bindAddr)
+	if err != nil {
+		return 0, err
+	}
+
+	return sockfd, nil
 }
