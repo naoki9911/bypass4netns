@@ -14,6 +14,7 @@ var (
 	url       = flag.String("url", "http://localhost/blk-1m", "")
 	threadNum = flag.Int("thread-num", 1, "")
 	count     = flag.Int("count", 1, "")
+	profile   = flag.Bool("profile", false, "")
 )
 
 type BenchmarkResult struct {
@@ -25,6 +26,9 @@ type BenchmarkResult struct {
 
 func main() {
 	flag.Parse()
+	if *profile {
+		time.Sleep(10 * time.Second)
+	}
 
 	//fmt.Printf("url = %s\n", *url)
 	//fmt.Printf("thread-num = %d\n", *threadNum)

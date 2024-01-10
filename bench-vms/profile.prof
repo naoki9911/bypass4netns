@@ -1,0 +1,345 @@
+PeriodType: cpu nanoseconds
+Period: 10000000
+Time: 2023-12-21 12:50:18.806415818 +0900 JST
+Duration: 38.3
+Samples:
+samples/count cpu/nanoseconds
+          1   10000000: 1 2 3 4 5 6 
+       2497 24970000000: 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+         13  130000000: 7 21 22 23 24 25 26 
+          3   30000000: 27 14 15 16 17 18 19 20 
+          1   10000000: 28 29 24 25 26 
+          7   70000000: 30 31 25 26 
+         77  770000000: 7 21 22 32 24 25 26 
+          3   30000000: 33 25 26 
+          5   50000000: 34 35 10 11 12 13 14 15 16 17 18 19 20 
+         49  490000000: 36 37 38 39 40 41 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 44 45 46 47 12 13 14 15 16 17 18 19 20 
+          2   20000000: 48 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          2   20000000: 49 16 17 18 19 20 
+          1   10000000: 50 51 12 13 14 15 16 17 18 19 20 
+          1   10000000: 52 15 16 17 18 19 20 
+          1   10000000: 53 54 26 
+          1   10000000: 55 24 25 26 
+          1   10000000: 56 57 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 58 59 12 13 14 15 16 17 18 19 20 
+          1   10000000: 60 61 62 24 25 26 
+          3   30000000: 63 32 24 25 26 
+          6   60000000: 64 65 35 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 66 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          2   20000000: 67 68 24 25 26 
+          1   10000000: 69 
+          1   10000000: 70 29 24 25 26 
+          2   20000000: 71 41 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 72 19 20 
+          4   40000000: 73 
+          1   10000000: 74 16 17 18 19 20 
+          1   10000000: 75 29 24 25 26 
+          1   10000000: 76 32 24 25 26 
+          1   10000000: 77 29 24 25 26 
+          2   20000000: 78 79 32 24 25 26 
+          1   10000000: 80 12 13 14 15 16 17 18 19 20 
+          1   10000000: 81 32 24 25 26 
+          1   10000000: 7 8 9 82 83 84 85 86 87 88 
+          2   20000000: 89 9 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 90 91 92 93 94 95 
+          1   10000000: 96 97 29 24 25 26 
+          1   10000000: 98 22 23 24 25 26 
+          6   60000000: 99 24 25 26 
+          1   10000000: 100 101 102 24 25 26 
+          2   20000000: 103 16 17 18 19 20 
+          1   10000000: 104 105 19 20 
+          1   10000000: 106 12 13 14 15 16 17 18 19 20 
+          1   10000000: 107 20 
+          1   10000000: 108 109 35 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 63 23 24 25 26 
+          3   30000000: 110 29 24 25 26 
+          8   80000000: 111 102 24 25 26 
+          2   20000000: 112 29 24 25 26 
+          2   20000000: 113 35 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 114 29 24 25 26 
+          4   40000000: 115 116 117 12 13 14 15 16 17 18 19 20 
+          3   30000000: 118 24 25 26 
+          2   20000000: 119 54 26 
+          1   10000000: 120 121 24 25 26 
+          1   10000000: 122 45 46 47 12 13 14 15 16 17 18 19 20 
+          1   10000000: 123 13 14 15 16 17 18 19 20 
+          1   10000000: 124 125 12 13 14 15 16 17 18 19 20 
+          1   10000000: 126 51 12 13 14 15 16 17 18 19 20 
+          1   10000000: 127 31 25 26 
+          1   10000000: 128 47 12 13 14 15 16 17 18 19 20 
+          2   20000000: 129 20 
+          1   10000000: 130 41 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 131 13 14 15 16 17 18 19 20 
+          1   10000000: 132 9 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 133 134 24 25 26 
+          1   10000000: 135 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          3   30000000: 136 
+          1   10000000: 137 138 24 25 26 
+          2   20000000: 139 46 47 12 13 14 15 16 17 18 19 20 
+          1   10000000: 140 141 24 25 26 
+          1   10000000: 142 
+          7   70000000: 143 65 35 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 144 121 24 25 26 
+          3   30000000: 145 24 25 26 
+          1   10000000: 146 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          3   30000000: 147 
+          1   10000000: 148 121 24 25 26 
+          1   10000000: 149 150 151 31 25 26 
+          2   20000000: 152 24 25 26 
+          2   20000000: 153 12 13 14 15 16 17 18 19 20 
+          1   10000000: 154 24 25 26 
+          1   10000000: 155 97 29 24 25 26 
+          1   10000000: 156 157 158 159 
+          1   10000000: 160 31 25 26 
+          1   10000000: 161 17 18 19 20 
+          1   10000000: 162 12 13 14 15 16 17 18 19 20 
+          1   10000000: 163 29 24 25 26 
+          1   10000000: 36 37 38 164 165 166 167 168 169 170 171 138 24 25 26 
+          1   10000000: 172 39 40 41 42 43 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 173 15 16 17 18 19 20 
+          1   10000000: 174 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 175 176 65 35 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 177 29 24 25 26 
+          1   10000000: 178 179 24 25 26 
+          1   10000000: 180 43 10 11 12 13 14 15 16 17 18 19 20 
+          1   10000000: 181 18 19 20 
+          1   10000000: 182 68 24 25 26 
+          1   10000000: 183 22 32 24 25 26 
+          1   10000000: 184 15 16 17 18 19 20 
+          1   10000000: 185 24 25 26 
+          2   20000000: 14 15 16 17 18 19 20 
+          1   10000000: 186 102 24 25 26 
+          1   10000000: 187 32 24 25 26 
+          1   10000000: 188 179 24 25 26 
+          1   10000000: 189 190 24 25 26 
+Locations
+     1: 0x4149fa M=1 runtime.writeHeapBits.flush /usr/local/go/src/runtime/mbitmap.go:905 s=847
+     2: 0x414624 M=1 runtime.(*mspan).initHeapBits /usr/local/go/src/runtime/mbitmap.go:734 s=726
+     3: 0x415a4e M=1 runtime.(*mcache).allocLarge /usr/local/go/src/runtime/mcache.go:255 s=219
+     4: 0x40ce15 M=1 runtime.mallocgc /usr/local/go/src/runtime/malloc.go:1123 s=948
+     5: 0x44cf08 M=1 runtime.makeslice /usr/local/go/src/runtime/slice.go:103 s=88
+     6: 0x63da30 M=1 main.bench /go/bench.go:65 s=63
+     7: 0x403e6e M=1 runtime/internal/syscall.Syscall6 /usr/local/go/src/runtime/internal/syscall/asm_linux_amd64.s:36 s=27
+     8: 0x403e4c M=1 syscall.RawSyscall6 /usr/local/go/src/runtime/internal/syscall/syscall_linux.go:38 s=37
+     9: 0x495225 M=1 syscall.Syscall /usr/local/go/src/syscall/syscall_linux.go:82 s=68
+    10: 0x493bd7 M=1 syscall.read /usr/local/go/src/syscall/zsyscall_linux_amd64.go:721 s=714
+    11: 0x4a934d M=1 syscall.Read /usr/local/go/src/syscall/syscall_unix.go:181 s=180
+             internal/poll.ignoringEINTRIO /usr/local/go/src/internal/poll/fd_unix.go:736 s=734
+             internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:160 s=140
+    12: 0x5585c4 M=1 net.(*netFD).Read /usr/local/go/src/net/fd_posix.go:55 s=54
+    13: 0x562084 M=1 net.(*conn).Read /usr/local/go/src/net/net.go:179 s=175
+    14: 0x6265c9 M=1 net/http.(*persistConn).Read /usr/local/go/src/net/http/transport.go:1954 s=1947
+    15: 0x5cda02 M=1 bufio.(*Reader).Read /usr/local/go/src/bufio/bufio.go:230 s=215
+    16: 0x471f81 M=1 io.(*LimitedReader).Read /usr/local/go/src/io/io.go:480 s=473
+    17: 0x61c43a M=1 net/http.(*body).readLocked /usr/local/go/src/net/http/transfer.go:839 s=835
+    18: 0x61c317 M=1 net/http.(*body).Read /usr/local/go/src/net/http/transfer.go:831 s=825
+    19: 0x62aa9e M=1 net/http.(*bodyEOFSignal).Read /usr/local/go/src/net/http/transport.go:2810 s=2799
+    20: 0x63dceb M=1 main.bench /go/bench.go:93 s=63
+    21: 0x403de4 M=1 runtime/internal/syscall.EpollWait /usr/local/go/src/runtime/internal/syscall/syscall_linux.go:55 s=48
+    22: 0x43166a M=1 runtime.netpoll /usr/local/go/src/runtime/netpoll_epoll.go:118 s=98
+    23: 0x43cfeb M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:2978 s=2891
+    24: 0x43e670 M=1 runtime.schedule /usr/local/go/src/runtime/proc.go:3582 s=3553
+    25: 0x43eb7e M=1 runtime.park_m /usr/local/go/src/runtime/proc.go:3745 s=3721
+    26: 0x4656cd M=1 runtime.mcall /usr/local/go/src/runtime/asm_amd64.s:458 s=428
+    27: 0x562088 M=1 net.(*conn).Read /usr/local/go/src/net/net.go:180 s=175
+    28: 0x43dd0b M=1 runtime.pMask.read /usr/local/go/src/runtime/proc.go:6028 s=6025
+             runtime.stealWork /usr/local/go/src/runtime/proc.go:3315 s=3260
+    29: 0x43d08e M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:2999 s=2891
+    30: 0x43cc66 M=1 runtime.execute /usr/local/go/src/runtime/proc.go:2871 s=2847
+    31: 0x43e7fb M=1 runtime.schedule /usr/local/go/src/runtime/proc.go:3632 s=3553
+    32: 0x43d504 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3191 s=2891
+    33: 0x43e6ea M=1 runtime.schedule /usr/local/go/src/runtime/proc.go:3603 s=3553
+    34: 0x462b92 M=1 runtime.exitsyscall /usr/local/go/src/runtime/proc.go:4161 s=4157
+    35: 0x495239 M=1 syscall.Syscall /usr/local/go/src/syscall/syscall_linux.go:83 s=68
+    36: 0x469383 M=1 runtime.futex /usr/local/go/src/runtime/sys_linux_amd64.s:558 s=549
+    37: 0x4319ef M=1 runtime.futexwakeup /usr/local/go/src/runtime/os_linux.go:82 s=81
+    38: 0x40b5e4 M=1 runtime.notewakeup /usr/local/go/src/runtime/lock_futex.go:145 s=139
+    39: 0x43f97e M=1 runtime.entersyscall_sysmon /usr/local/go/src/runtime/proc.go:4071 s=4067
+    40: 0x465749 M=1 runtime.systemstack /usr/local/go/src/runtime/asm_amd64.s:509 s=478
+    41: 0x43f744 M=1 runtime.reentersyscall /usr/local/go/src/runtime/proc.go:4033 s=3993
+    42: 0x462b76 M=1 runtime.entersyscall /usr/local/go/src/runtime/proc.go:4064 s=4063
+    43: 0x495204 M=1 syscall.Syscall /usr/local/go/src/syscall/syscall_linux.go:69 s=68
+    44: 0x430c93 M=1 runtime.netpollcheckerr /usr/local/go/src/runtime/netpoll.go:505 s=500
+             runtime.netpollblock /usr/local/go/src/runtime/netpoll.go:563 s=537
+    45: 0x462224 M=1 internal/poll.runtime_pollWait /usr/local/go/src/runtime/netpoll.go:343 s=334
+    46: 0x4a89e6 M=1 internal/poll.(*pollDesc).wait /usr/local/go/src/internal/poll/fd_poll_runtime.go:84 s=80
+    47: 0x4a9319 M=1 internal/poll.(*pollDesc).waitRead /usr/local/go/src/internal/poll/fd_poll_runtime.go:89 s=88
+             internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:164 s=140
+    48: 0x43f730 M=1 runtime/internal/atomic.(*Bool).Load /usr/local/go/src/runtime/internal/atomic/types.go:168 s=167
+             runtime.reentersyscall /usr/local/go/src/runtime/proc.go:4032 s=3993
+    49: 0x5cd9fe M=1 bufio.(*Reader).Read /usr/local/go/src/bufio/bufio.go:230 s=215
+    50: 0x404a3e M=1 runtime.ifaceeq /usr/local/go/src/runtime/alg.go:273 s=260
+    51: 0x4a9384 M=1 internal/poll.ignoringEINTRIO /usr/local/go/src/internal/poll/fd_unix.go:737 s=734
+             internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:160 s=140
+    52: 0x626584 M=1 net/http.(*persistConn).Read /usr/local/go/src/net/http/transport.go:1947 s=1947
+    53: 0x430afa M=1 runtime.netpollblockcommit /usr/local/go/src/runtime/netpoll.go:518 s=517
+    54: 0x43eb02 M=1 runtime.park_m /usr/local/go/src/runtime/proc.go:3734 s=3721
+    55: 0x43cfcd M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:2977 s=2891
+    56: 0x43f5e0 M=1 runtime.save /usr/local/go/src/runtime/proc.go:3932 s=3932
+    57: 0x43f675 M=1 runtime.reentersyscall /usr/local/go/src/runtime/proc.go:4008 s=3993
+    58: 0x4a848e M=1 internal/poll.(*fdMutex).rwlock /usr/local/go/src/internal/poll/fd_mutex.go:140 s=117
+    59: 0x4a9104 M=1 internal/poll.(*FD).readLock /usr/local/go/src/internal/poll/fd_mutex.go:221 s=220
+             internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:141 s=140
+    60: 0x415cc4 M=1 runtime.(*mcache).prepareForSweep /usr/local/go/src/runtime/mcache.go:312 s=312
+    61: 0x442745 M=1 runtime.acquirep /usr/local/go/src/runtime/proc.go:5334 s=5326
+    62: 0x43d5ad M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3208 s=2891
+    63: 0x431638 M=1 runtime.netpoll /usr/local/go/src/runtime/netpoll_epoll.go:116 s=98
+    64: 0x43fed2 M=1 runtime.exitsyscallfast /usr/local/go/src/runtime/proc.go:4244 s=4240
+    65: 0x462bd9 M=1 runtime.exitsyscall /usr/local/go/src/runtime/proc.go:4168 s=4157
+    66: 0x43f77e M=1 runtime.reentersyscall /usr/local/go/src/runtime/proc.go:4037 s=3993
+    67: 0x40b397 M=1 runtime.lock2 /usr/local/go/src/runtime/lock_futex.go:61 s=51
+    68: 0x43d21d M=1 runtime.lockWithRank /usr/local/go/src/runtime/lockrank_off.go:24 s=23
+             runtime.lock /usr/local/go/src/runtime/lock_futex.go:48 s=47
+             runtime.findRunnable /usr/local/go/src/runtime/proc.go:3062 s=2891
+    69: 0x468f16 M=1 runtime.nanotime1 /usr/local/go/src/runtime/sys_linux_amd64.s:239 s=223
+    70: 0x43db60 M=1 runtime.stealWork /usr/local/go/src/runtime/proc.go:3269 s=3260
+    71: 0x465753 M=1 runtime.systemstack /usr/local/go/src/runtime/asm_amd64.s:514 s=478
+    72: 0x61c24a M=1 net/http.(*body).Read /usr/local/go/src/net/http/transfer.go:826 s=825
+    73: 0x63dcef M=1 main.bench /go/bench.go:94 s=63
+    74: 0x5cda29 M=1 bufio.(*Reader).Read /usr/local/go/src/bufio/bufio.go:231 s=215
+    75: 0x43db2e M=1 runtime.(*randomOrder).start /usr/local/go/src/runtime/proc.go:6662 s=6658
+             runtime.stealWork /usr/local/go/src/runtime/proc.go:3269 s=3260
+    76: 0x4317c6 M=1 runtime.netpoll /usr/local/go/src/runtime/netpoll_epoll.go:165 s=98
+    77: 0x43dba3 M=1 runtime.(*randomEnum).next /usr/local/go/src/runtime/proc.go:6672 s=6670
+             runtime.stealWork /usr/local/go/src/runtime/proc.go:3269 s=3260
+    78: 0x430a1e M=1 runtime.(*gList).push /usr/local/go/src/runtime/proc.go:6532 s=6530
+             runtime.netpollready /usr/local/go/src/runtime/netpoll.go:493 s=484
+    79: 0x431804 M=1 runtime.netpoll /usr/local/go/src/runtime/netpoll_epoll.go:167 s=98
+    80: 0x4a91b8 M=1 internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:156 s=140
+    81: 0x43166e M=1 runtime.netpoll /usr/local/go/src/runtime/netpoll_epoll.go:119 s=98
+    82: 0x493d9a M=1 syscall.write /usr/local/go/src/syscall/zsyscall_linux_amd64.go:949 s=942
+    83: 0x4a99fe M=1 syscall.Write /usr/local/go/src/syscall/syscall_unix.go:209 s=199
+             internal/poll.ignoringEINTRIO /usr/local/go/src/internal/poll/fd_unix.go:736 s=734
+             internal/poll.(*FD).Write /usr/local/go/src/internal/poll/fd_unix.go:380 s=366
+    84: 0x5586c4 M=1 net.(*netFD).Write /usr/local/go/src/net/fd_posix.go:96 s=95
+    85: 0x562244 M=1 net.(*conn).Write /usr/local/go/src/net/net.go:191 s=187
+    86: 0x6260e8 M=1 net/http.persistConnWriter.Write /usr/local/go/src/net/http/transport.go:1792 s=1791
+    87: 0x5ce534 M=1 bufio.(*Writer).Flush /usr/local/go/src/bufio/bufio.go:642 s=635
+    88: 0x628e7d M=1 net/http.(*persistConn).writeLoop /usr/local/go/src/net/http/transport.go:2437 s=2418
+    89: 0x403e4d M=1 syscall.RawSyscall6 /usr/local/go/src/runtime/internal/syscall/syscall_linux.go:38 s=37
+    90: 0x464986 M=1 aeshashbody /usr/local/go/src/runtime/asm_amd64.s:1215 s=1184
+    91: 0x62d8eb M=1 type:.hash.net/http.connectMethodKey <autogenerated>:1 s=1
+    92: 0x40e811 M=1 runtime.mapassign /usr/local/go/src/runtime/map.go:598 s=579
+    93: 0x61fc92 M=1 net/http.(*Transport).tryPutIdleConn /usr/local/go/src/net/http/transport.go:996 s=925
+    94: 0x62834f M=1 net/http.(*persistConn).readLoop.func2 /usr/local/go/src/net/http/transport.go:2091 s=2090
+    95: 0x628085 M=1 net/http.(*persistConn).readLoop /usr/local/go/src/net/http/transport.go:2245 s=2083
+    96: 0x43e87b M=1 runtime.checkTimers /usr/local/go/src/runtime/proc.go:3663 s=3659
+    97: 0x43dc4c M=1 runtime.stealWork /usr/local/go/src/runtime/proc.go:3293 s=3260
+    98: 0x403da0 M=1 runtime/internal/syscall.EpollWait /usr/local/go/src/runtime/internal/syscall/syscall_linux.go:48 s=48
+    99: 0x43d533 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3195 s=2891
+   100: 0x41c976 M=1 runtime/internal/atomic.(*Uint64).CompareAndSwap /usr/local/go/src/runtime/internal/atomic/types.go:325 s=324
+             runtime.(*limiterEvent).stop /usr/local/go/src/runtime/mgclimit.go:456 s=448
+   101: 0x4445ee M=1 runtime.pidleget /usr/local/go/src/runtime/proc.go:6136 s=6123
+   102: 0x43d57c M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3203 s=2891
+   103: 0x5cda63 M=1 bufio.(*Reader).readErr /usr/local/go/src/bufio/bufio.go:130 s=129
+             bufio.(*Reader).Read /usr/local/go/src/bufio/bufio.go:238 s=215
+   104: 0x47000a M=1 sync.(*Mutex).Unlock /usr/local/go/src/sync/mutex.go:225 s=212
+   105: 0x61c335 M=1 net/http.(*body).Read /usr/local/go/src/net/http/transfer.go:831 s=825
+   106: 0x4a9152 M=1 internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:144 s=140
+   107: 0x62aa20 M=1 sync.(*Mutex).Unlock /usr/local/go/src/sync/mutex.go:219 s=212
+             net/http.(*bodyEOFSignal).Read /usr/local/go/src/net/http/transport.go:2802 s=2799
+   108: 0x439ee7 M=1 runtime.casgstatus /usr/local/go/src/runtime/proc.go:1084 s=1042
+   109: 0x462cad M=1 runtime.exitsyscall /usr/local/go/src/runtime/proc.go:4187 s=4157
+   110: 0x43dbd5 M=1 runtime.stealWork /usr/local/go/src/runtime/proc.go:3274 s=3260
+   111: 0x4445df M=1 runtime.pidleget /usr/local/go/src/runtime/proc.go:6136 s=6123
+   112: 0x43dd5e M=1 runtime.(*randomEnum).next /usr/local/go/src/runtime/proc.go:6672 s=6670
+             runtime.stealWork /usr/local/go/src/runtime/proc.go:3269 s=3260
+   113: 0x462b81 M=1 runtime.exitsyscall /usr/local/go/src/runtime/proc.go:4157 s=4157
+   114: 0x43dbe9 M=1 runtime.stealWork /usr/local/go/src/runtime/proc.go:3275 s=3260
+   115: 0x462125 M=1 runtime.pollInfo.closing /usr/local/go/src/runtime/netpoll.go:132 s=132
+             runtime.netpollcheckerr /usr/local/go/src/runtime/netpoll.go:502 s=500
+             internal/poll.runtime_pollReset /usr/local/go/src/runtime/netpoll.go:316 s=315
+   116: 0x4a88c6 M=1 internal/poll.(*pollDesc).prepare /usr/local/go/src/internal/poll/fd_poll_runtime.go:68 s=64
+   117: 0x4a91a4 M=1 internal/poll.(*pollDesc).prepareRead /usr/local/go/src/internal/poll/fd_poll_runtime.go:73 s=72
+             internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:153 s=140
+   118: 0x43d50f M=1 runtime.nanotime /usr/local/go/src/runtime/time_nofake.go:19 s=18
+             runtime.findRunnable /usr/local/go/src/runtime/proc.go:3193 s=2891
+   119: 0x430b15 M=1 runtime.netpollblockcommit /usr/local/go/src/runtime/netpoll.go:525 s=517
+   120: 0x44441e M=1 runtime/internal/atomic.(*Uint64).Load /usr/local/go/src/runtime/internal/atomic/types.go:309 s=308
+             runtime.(*limiterEvent).start /usr/local/go/src/runtime/mgclimit.go:409 s=408
+             runtime.pidleput /usr/local/go/src/runtime/proc.go:6110 s=6096
+   121: 0x43d2f5 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3081 s=2891
+   122: 0x430c14 M=1 runtime.netpollblock /usr/local/go/src/runtime/netpoll.go:538 s=537
+   123: 0x558655 M=1 net.(*netFD).Read /usr/local/go/src/net/fd_posix.go:57 s=54
+   124: 0x4a86f5 M=1 internal/poll.(*FD).readUnlock /usr/local/go/src/internal/poll/fd_mutex.go:231 s=230
+   125: 0x4a93f0 M=1 internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:170 s=140
+   126: 0x404a1b M=1 runtime.ifaceeq /usr/local/go/src/runtime/alg.go:265 s=260
+   127: 0x43cbab M=1 runtime.execute /usr/local/go/src/runtime/proc.go:2850 s=2847
+   128: 0x4a89ec M=1 internal/poll.convertErr /usr/local/go/src/internal/poll/fd_poll_runtime.go:117 s=116
+             internal/poll.(*pollDesc).wait /usr/local/go/src/internal/poll/fd_poll_runtime.go:85 s=80
+   129: 0x62aaa4 M=1 net/http.(*bodyEOFSignal).Read /usr/local/go/src/net/http/transport.go:2810 s=2799
+   130: 0x465748 M=1 runtime.systemstack /usr/local/go/src/runtime/asm_amd64.s:509 s=478
+   131: 0x5585c5 M=1 net.wrapSyscallError /usr/local/go/src/net/error_posix.go:17 s=16
+             net.(*netFD).Read /usr/local/go/src/net/fd_posix.go:57 s=54
+   132: 0x403e51 M=1 syscall.RawSyscall6 /usr/local/go/src/runtime/internal/syscall/syscall_linux.go:38 s=37
+   133: 0x43e2eb M=1 runtime.injectglist /usr/local/go/src/runtime/proc.go:3477 s=3477
+   134: 0x43d7ed M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3211 s=2891
+   135: 0x43f648 M=1 runtime.reentersyscall /usr/local/go/src/runtime/proc.go:3993 s=3993
+   136: 0x63dcd7 M=1 main.bench /go/bench.go:93 s=63
+   137: 0x43e8b2 M=1 runtime.nanotime /usr/local/go/src/runtime/time_nofake.go:19 s=18
+             runtime.checkTimers /usr/local/go/src/runtime/proc.go:3674 s=3659
+   138: 0x43cd53 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:2912 s=2891
+   139: 0x462227 M=1 internal/poll.runtime_pollWait /usr/local/go/src/runtime/netpoll.go:343 s=334
+   140: 0x439c90 M=1 runtime.casgstatus /usr/local/go/src/runtime/proc.go:1059 s=1042
+   141: 0x43d804 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3212 s=2891
+   142: 0x465777 M=1 runtime.systemstack /usr/local/go/src/runtime/asm_amd64.s:520 s=478
+   143: 0x43fee9 M=1 runtime.exitsyscallfast /usr/local/go/src/runtime/proc.go:4249 s=4240
+   144: 0x4443f7 M=1 runtime.pidleput /usr/local/go/src/runtime/proc.go:6107 s=6096
+   145: 0x43d079 M=1 runtime.(*m).becomeSpinning /usr/local/go/src/runtime/proc.go:875 s=872
+             runtime.findRunnable /usr/local/go/src/runtime/proc.go:2996 s=2891
+   146: 0x43f657 M=1 runtime.reentersyscall /usr/local/go/src/runtime/proc.go:3994 s=3993
+   147: 0x63dcc6 M=1 main.bench /go/bench.go:93 s=63
+   148: 0x44444d M=1 runtime.pidleput /usr/local/go/src/runtime/proc.go:6113 s=6096
+   149: 0x409ccd M=1 runtime.(*timeHistogram).record /usr/local/go/src/runtime/histogram.go:135 s=105
+   150: 0x439ea6 M=1 runtime.casgstatus /usr/local/go/src/runtime/proc.go:1133 s=1042
+   151: 0x43cc1a M=1 runtime.execute /usr/local/go/src/runtime/proc.go:2861 s=2847
+   152: 0x43cf50 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:2961 s=2891
+   153: 0x4a9353 M=1 internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:169 s=140
+   154: 0x43d341 M=1 runtime/internal/atomic.(*Int32).Add /usr/local/go/src/runtime/internal/atomic/types.go:56 s=55
+             runtime.findRunnable /usr/local/go/src/runtime/proc.go:3123 s=2891
+   155: 0x43e864 M=1 runtime.checkTimers /usr/local/go/src/runtime/proc.go:3659 s=3659
+   156: 0x4133c1 M=1 runtime.typedmemmove /usr/local/go/src/runtime/mbarrier.go:152 s=152
+   157: 0x4063c7 M=1 runtime.chanrecv /usr/local/go/src/runtime/chan.go:544 s=457
+   158: 0x406211 M=1 runtime.chanrecv1 /usr/local/go/src/runtime/chan.go:442 s=441
+   159: 0x62747d M=1 net/http.(*persistConn).readLoop /usr/local/go/src/net/http/transport.go:2128 s=2083
+   160: 0x43cc7f M=1 runtime.traceEnabled /usr/local/go/src/runtime/trace.go:263 s=262
+             runtime.execute /usr/local/go/src/runtime/proc.go:2875 s=2847
+   161: 0x471f87 M=1 io.(*LimitedReader).Read /usr/local/go/src/io/io.go:481 s=473
+   162: 0x4a90ba M=1 internal/poll.(*FD).Read /usr/local/go/src/internal/poll/fd_unix.go:140 s=140
+   163: 0x43dd5a M=1 runtime.(*randomEnum).next /usr/local/go/src/runtime/proc.go:6671 s=6670
+             runtime.stealWork /usr/local/go/src/runtime/proc.go:3269 s=3260
+   164: 0x43c208 M=1 runtime.startm /usr/local/go/src/runtime/proc.go:2649 s=2563
+   165: 0x43c6eb M=1 runtime.wakep /usr/local/go/src/runtime/proc.go:2760 s=2729
+   166: 0x4394ca M=1 runtime.ready /usr/local/go/src/runtime/proc.go:907 s=890
+   167: 0x454944 M=1 runtime.goroutineReady.goready.func1 /usr/local/go/src/runtime/proc.go:409 s=408
+   168: 0x4548bb M=1 runtime.goready /usr/local/go/src/runtime/proc.go:408 s=407
+             runtime.goroutineReady /usr/local/go/src/runtime/time.go:249 s=248
+   169: 0x456258 M=1 runtime.runOneTimer /usr/local/go/src/runtime/time.go:885 s=841
+   170: 0x456099 M=1 runtime.runtimer /usr/local/go/src/runtime/time.go:792 s=774
+   171: 0x43e97a M=1 runtime.checkTimers /usr/local/go/src/runtime/proc.go:3693 s=3659
+   172: 0x40b5d5 M=1 runtime.notewakeup /usr/local/go/src/runtime/lock_futex.go:141 s=139
+   173: 0x6265d1 M=1 net/http.(*persistConn).Read /usr/local/go/src/net/http/transport.go:1955 s=1947
+   174: 0x493bdb M=1 syscall.read /usr/local/go/src/syscall/zsyscall_linux_amd64.go:723 s=714
+   175: 0x440041 M=1 runtime.exitsyscallfast_reacquired /usr/local/go/src/runtime/proc.go:4284 s=4284
+   176: 0x43ff10 M=1 runtime.exitsyscallfast /usr/local/go/src/runtime/proc.go:4252 s=4240
+   177: 0x43dbf6 M=1 runtime.stealWork /usr/local/go/src/runtime/proc.go:3292 s=3260
+   178: 0x43dfdb M=1 runtime.pMask.read /usr/local/go/src/runtime/proc.go:6028 s=6025
+             runtime.checkTimersNoP /usr/local/go/src/runtime/proc.go:3358 s=3356
+   179: 0x43d404 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3165 s=2891
+   180: 0x462b61 M=1 runtime.entersyscall /usr/local/go/src/runtime/proc.go:4063 s=4063
+   181: 0x61c563 M=1 net/http.(*body).readLocked /usr/local/go/src/net/http/transfer.go:870 s=835
+   182: 0x40b376 M=1 runtime.lock2 /usr/local/go/src/runtime/lock_futex.go:54 s=51
+   183: 0x403de5 M=1 runtime/internal/syscall.EpollWait /usr/local/go/src/runtime/internal/syscall/syscall_linux.go:56 s=48
+   184: 0x6265c2 M=1 net/http.(*persistConn).Read /usr/local/go/src/net/http/transport.go:1954 s=1947
+   185: 0x43ceb4 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:2951 s=2891
+   186: 0x4445c3 M=1 runtime.pidleget /usr/local/go/src/runtime/proc.go:6134 s=6123
+   187: 0x43170a M=1 runtime.netpoll /usr/local/go/src/runtime/netpoll_epoll.go:138 s=98
+   188: 0x43dfcf M=1 runtime.pMask.read /usr/local/go/src/runtime/proc.go:6028 s=6025
+             runtime.checkTimersNoP /usr/local/go/src/runtime/proc.go:3358 s=3356
+   189: 0x43e141 M=1 runtime.checkIdleGCNoP /usr/local/go/src/runtime/proc.go:3381 s=3373
+   190: 0x43d3c4 M=1 runtime.findRunnable /usr/local/go/src/runtime/proc.go:3145 s=2891
+Mappings
+1: 0x400000/0x63f000/0x0 /bench  [FN]
+2: 0x7ffc06a27000/0x7ffc06a29000/0x0 [vdso]  
+3: 0xffffffffff600000/0xffffffffff601000/0x0 [vsyscall]  
