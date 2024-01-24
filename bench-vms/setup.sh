@@ -4,7 +4,7 @@ function setup() {
     pushd ../../
     rsync -avh bypass4netns/ $1:$B4NS_PATH
     popd
-    ssh b4ns-1 "source ~/.profile && cd $B4NS_PATH && make && sudo make install"
+    ssh $1 "source ~/.profile && cd $B4NS_PATH && make && sudo make install"
 }
 
 function restart_services() {
