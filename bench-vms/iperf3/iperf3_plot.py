@@ -27,6 +27,8 @@ def load_datas(prefix):
         d = load_data(file)
         if d == None:
             return None
+        if "error"  in d:
+            return None
         rcv_bps += d["end"]["sum_received"]["bits_per_second"]
         cnt += 1
     data["rcv_bps"] = rcv_bps / cnt
@@ -48,14 +50,17 @@ factor = (data_num+1) * BAR_WIDTH
 order = [0, 3, 1, 4, 2, 5]
 for i in order:
     value = []
+    label_idx = 0
     for l in labels:
         data_json = load_datas('{}-p{}'.format(datas[i], l))
 
         # error tests are treated as 0
         if data_json == None:
             value.append(0)
+            plt.text(label_idx*factor+(BAR_WIDTH*i)+0.025, 0, "X", fontsize=14)
         else:
             value.append(data_json["rcv_bps"] / 1024 / 1024 / 1024)
+        label_idx += 1
     print("{}:{}".format(datas[i], value[0]))
 
     plt.bar([x*factor+(BAR_WIDTH*i) for x in range(0, len(labels))], value, color=colors[i], align="edge",  edgecolor="black", linewidth=1, width=BAR_WIDTH, label=datas[i], hatch=patterns[i]*3)

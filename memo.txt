@@ -1,0 +1,102 @@
+COPY <<EOF /iperf3.json.patch
+--- src/iperf_api.c     2024-01-31 20:11:59.187201276 +0900
++++ iperf_api.c 2024-01-31 20:31:05.854959213 +0900
+@@ -2677,12 +2677,16 @@
+     else {
+        hsize = strlen(str);
+        nsize = htonl(hsize);
+-       if (Nwrite(fd, (char*) &nsize, sizeof(nsize), Ptcp) < 0)
++       printf("[%ld] JSON_write size=%d\\n", time(NULL), hsize);
++       if (Nwrite(fd, (char*) &nsize, sizeof(nsize), Ptcp) < 0) {
++           printf("[%d] JSON_write failed to write header\\n", time(NULL));
+            r = -1;
+-       else {
++       } else {
++           printf("[%ld] JSON_write header written\\n", time(NULL));
+            if (Nwrite(fd, str, hsize, Ptcp) < 0)
+                r = -1;
+        }
++       printf("[%ld] JSON_write done\\n", time(NULL));
+        cJSON_free(str);
+     }
+     return r;
+@@ -2706,6 +2710,7 @@
+      */
+     if (Nread(fd, (char*) &nsize, sizeof(nsize), Ptcp) >= 0) {
+        hsize = ntohl(nsize);
++       printf("[%ld] JSON_read size=%d\\n", time(NULL), hsize);
+        /* Allocate a buffer to hold the JSON */
+        strsize = hsize + 1;              /* +1 for trailing NULL */
+        if (strsize) {
+@@ -2719,6 +2724,7 @@
+                 * prematurely closed.  Only do the JSON parsing if we got the
+                 * correct number of bytes.
+                 */
++               printf("[%ld] JSON_read recv_size=%d\\n", time(NULL), rc);
+                if (rc == hsize) {
+                    json = cJSON_Parse(str);
+                }
+EOF
+
+COPY <<EOF /iperf3.net.patch
+--- src/net.c   2023-11-30 04:46:13.000000000 +0900
++++ net.c       2024-01-31 21:43:01.711572187 +0900
+@@ -390,6 +390,7 @@
+      * already know that fd has data on it (for example if we'd gotten
+      * to here as the result of a select() call.
+      */
+     {
+         FD_ZERO(&rfdset);
+         FD_SET(fd, &rfdset);
+@@ -398,20 +399,25 @@
+             return NET_HARDERROR;
+         }
+         if (r == 0) {
++            printf("Nread nothing to read\n");
+             return 0;
+         }
+     }
+ 
+     while (nleft > 0) {
+         r = read(fd, buf, nleft);
+         if (r < 0) {
+-            /* XXX EWOULDBLOCK can't happen without non-blocking sockets */
+             if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
+                 break;
+             else
+                 return NET_HARDERROR;
+-        } else if (r == 0)
++        } else if (r == 0) {
++           printf("Nread loop: nothing to read\n");
+             break;
++       }
+ 
+         nleft -= r;
+         buf += r;
+@@ -421,14 +427,10 @@
+          * forever for them. In the case of partial results, we need
+          * to be able to read some bytes every nread_timeout seconds.
+          */
+         if (nleft > 0) {
+             struct iperf_time now;
+ 
+-            /*
+-             * Also, we have an approximate upper limit for the total time
+-             * that a Nread call is supposed to take. We trade off accuracy
+-             * of this timeout for a hopefully lower performance impact.
+-             */
+             iperf_time_now(&now);
+             if (ftimeout.secs == 0) {
+                 ftimeout = now;
+@@ -445,9 +447,11 @@
+                 return NET_HARDERROR;
+             }
+             if (r == 0) {
++               printf("Nread: loop select nothing to read\n");
+                 break;
+             }
+         }
+     }
+     return count - nleft;
+ }
+EOF

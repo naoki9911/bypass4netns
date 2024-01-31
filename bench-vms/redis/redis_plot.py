@@ -43,7 +43,7 @@ plt.ylabel("Requests / second")
 
 data_num = len(datas)
 factor = (data_num+1) * BAR_WIDTH
-order = [0, 3, 1, 4, 2, 5]
+order = [0, 1, 2, 3, 4, 5]
 for i in order:
     name = datas[i]
     data_csv = load_datas(name)
@@ -52,7 +52,7 @@ for i in order:
         value.append(data_csv[l])
     plt.bar([x*factor+(BAR_WIDTH*i) for x in range(0, len(labels))], value, align="edge",  edgecolor="black", linewidth=1, width=BAR_WIDTH, label=name, color=colors[i], hatch=patterns[i]*3)
 
-plt.legend(loc='upper center', bbox_to_anchor=(.5, -.15), ncol=len(datas), fontsize=14)
+plt.legend(loc='upper center', bbox_to_anchor=(.5, -.16), ncol=len(datas), fontsize=14)
 plt.xlim(0, (len(labels)-1)*factor+BAR_WIDTH*data_num)
 plt.xticks([x*factor+BAR_WIDTH*data_num/2 for x in range(0, len(labels))], labels, fontsize=14)
 plt.tight_layout()

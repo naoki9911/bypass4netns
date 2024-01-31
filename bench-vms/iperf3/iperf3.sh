@@ -43,9 +43,6 @@ echo "===== Benchmark: iperf3 rootful via port fowarding ====="
   sleep 1
   set +e
   ssh $VM2 "sudo nerdctl exec iperf3-client iperf3 -c $VM1_ADDR -p 5202 -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J" > iperf3-rootful-pfd-p$PARALLEL_NUM-$DATE.log
-  if [ $? -ne 0 ]; then
-    echo "FAIL" > iperf3-rootful-pfd-p$PARALLEL_NUM-$DATE.log
-  fi
   set -e
 
   cleanup
@@ -70,9 +67,6 @@ echo "===== Benchmark: iperf3 client(w/o bypass4netns) server(w/o bypass4netns) 
   sleep 1
   set +e
   ssh $VM2 "nerdctl exec iperf3-client iperf3 -c $VM1_ADDR -p 5203 -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J" > iperf3-rootless-pfd-p$PARALLEL_NUM-$DATE.log
-  if [ $? -ne 0 ]; then
-    echo "FAIL" > iperf3-rootless-pfd-p$PARALLEL_NUM-$DATE.log
-  fi
   set -e
 
   cleanup
@@ -103,9 +97,6 @@ echo "===== Benchmark: iperf3 client(w/ bypass4netns) server(w/ bypass4netns) vi
   sleep 1
   set +e
   ssh $VM2 "nerdctl exec iperf3-client iperf3 -c $VM1_ADDR -p 5202 -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J" > iperf3-b4ns-pfd-p$PARALLEL_NUM-$DATE.log
-  if [ $? -ne 0 ]; then
-    echo "FAIL" > iperf3-b4ns-pfd-p$PARALLEL_NUM-$DATE.log
-  fi
   set -e
 
   cleanup
@@ -127,7 +118,7 @@ echo "===== Benchmark: iperf3 rootful via VXLAN ====="
   cleanup
   set -ex
 
-  ssh $VM1 "sudo nerdctl run -d --name iperf3-server $IMAGE_NAME"
+  ssh $VM1 "sudo nerdctl run -d --name iperf3-server $IMAGE_NAME iperf3 -s -i 0"
   ssh $VM2 "sudo nerdctl run -d --name iperf3-client $IMAGE_NAME"
 
   CONTAINER_PID=$(ssh $VM1 "sudo nerdctl inspect iperf3-server | jq '.[0].State.Pid'")
@@ -135,14 +126,10 @@ echo "===== Benchmark: iperf3 rootful via VXLAN ====="
   CONTAINER_PID=$(ssh $VM2 "sudo nerdctl inspect iperf3-client | jq '.[0].State.Pid'")
   ssh $VM2 "sudo $B4NS_PATH/bench-vms/setup_vxlan.sh 1 $CONTAINER_PID enp2s0 $VM2_VXLAN_MAC $VM2_VXLAN_ADDR $VM1_ADDR $VM1_VXLAN_MAC $VM1_VXLAN_ADDR"
 
-  ssh $VM1 "systemd-run --user --unit iperf3-server sudo nerdctl exec iperf3-server iperf3 -s"
-
   sleep 1
   set +e
-  ssh $VM2 "sudo nerdctl exec iperf3-client iperf3 -c $VM1_VXLAN_ADDR -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J" > iperf3-rootful-vxlan-p$PARALLEL_NUM-$DATE.log
-  if [ $? -ne 0 ]; then
-    echo "FAIL" > iperf3-rootful-vxlan-p$PARALLEL_NUM-$DATE.log
-  fi
+  ssh $VM2 "sudo nerdctl exec iperf3-client iperf3 -c $VM1_VXLAN_ADDR -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J"> iperf3-rootful-vxlan-p$PARALLEL_NUM-$DATE.log
+  ssh $VM1 "sudo nerdctl logs iperf3-server" > iperf3-server-rootful-vxlan-p$PARALLEL_NUM-$DATE.log
   set -e
 
   cleanup
@@ -159,7 +146,7 @@ echo "===== Benchmark: iperf3 rootless via VXLAN ====="
   cleanup
   set -ex
 
-  ssh $VM1 "nerdctl run -p 4789:4789/udp --privileged -d --name iperf3-server $IMAGE_NAME"
+  ssh $VM1 "nerdctl run -p 4789:4789/udp --privileged -d --name iperf3-server $IMAGE_NAME iperf3 -s -i 0"
   ssh $VM2 "nerdctl run -p 4789:4789/udp --privileged -d --name iperf3-client $IMAGE_NAME"
 
   CONTAINER_PID=$(ssh $VM1 "nerdctl inspect iperf3-server | jq '.[0].State.Pid'")
@@ -167,14 +154,10 @@ echo "===== Benchmark: iperf3 rootless via VXLAN ====="
   CONTAINER_PID=$(ssh $VM2 "nerdctl inspect iperf3-client | jq '.[0].State.Pid'")
   ssh $VM2 "$B4NS_PATH/bench-vms/setup_vxlan.sh $CONTAINER_PID $CONTAINER_PID eth0 $VM2_VXLAN_MAC $VM2_VXLAN_ADDR $VM1_ADDR $VM1_VXLAN_MAC $VM1_VXLAN_ADDR"
 
-  ssh $VM1 "systemd-run --user --unit iperf3-server nerdctl exec iperf3-server iperf3 -s"
-
   sleep 1
   set +e
   ssh $VM2 "nerdctl exec iperf3-client iperf3 -c $VM1_VXLAN_ADDR -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J" > iperf3-rootless-vxlan-p$PARALLEL_NUM-$DATE.log
-  if [ $? -ne 0 ]; then
-    echo "FAIL" > iperf3-rootless-vxlan-p$PARALLEL_NUM-$DATE.log
-  fi
+  ssh $VM1 "nerdctl logs iperf3-server" > iperf3-server-rootless-vxlan-p$PARALLEL_NUM-$DATE.log
   set -e
 
   cleanup
@@ -210,9 +193,6 @@ echo "===== Benchmark: iperf3 client(w/ bypass4netns) server(w/ bypass4netns) wi
   sleep 1
   set +e
   ssh $VM2 "nerdctl exec iperf3-client iperf3 -c $SERVER_IP -i 0 -t $TIME --connect-timeout 1000 -P $PARALLEL_NUM -J" > iperf3-b4ns-multinode-p$PARALLEL_NUM-$DATE.log
-  if [ $? -ne 0 ]; then
-    echo "FAIL" > iperf3-b4ns-multinode-p$PARALLEL_NUM-$DATE.log
-  fi
   set -e
 
   cleanup
