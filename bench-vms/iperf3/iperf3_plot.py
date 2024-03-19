@@ -40,7 +40,7 @@ colors = ["slategray", "royalblue", "orange", "slategray", "royalblue", "orange"
 datas = ["rootful-pfd", "rootless-pfd", "b4ns-pfd", "rootful-vxlan", "rootless-vxlan", "b4ns-multinode"]
 labels=['1', '2', '4', '8']
 
-#plt.rcParams["figure.figsize"] = (6.6,8)
+plt.rcParams["figure.figsize"] = (6.0,5)
 plt.rcParams["font.size"] = 18
 plt.ylabel("Throughput (Gbps)")
 plt.xlabel("Number of parallel streams")
@@ -66,10 +66,10 @@ for i in order:
     plt.bar([x*factor+(BAR_WIDTH*i) for x in range(0, len(labels))], value, color=colors[i], align="edge",  edgecolor="black", linewidth=1, width=BAR_WIDTH, label=datas[i], hatch=patterns[i]*3)
 
 
-plt.legend(loc='upper center', bbox_to_anchor=(.5, -.25), ncol=len(datas)/2, fontsize=12)
+plt.legend(loc='upper center', bbox_to_anchor=(.42, -.25), ncol=len(datas)/2, fontsize=12)
 plt.xlim(0, (len(labels)-1)*factor+BAR_WIDTH*data_num)
 plt.xticks([x*factor+BAR_WIDTH*data_num/2 for x in range(0, len(labels))], labels)
 plt.tight_layout()
 
-plt.savefig("iperf3.png")
+plt.savefig("iperf3.png", dpi=400)
 plt.savefig("iperf3.pdf")

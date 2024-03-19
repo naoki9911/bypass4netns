@@ -57,5 +57,5 @@ plt.xlim(0, (len(labels)-1)*factor+BAR_WIDTH*data_num)
 plt.xticks([x*factor+BAR_WIDTH*data_num/2 for x in range(0, len(labels))], labels, fontsize=14)
 plt.tight_layout()
 
-plt.savefig("redis.png")
+plt.savefig("redis.png", dpi=400)
 plt.savefig("redis.pdf")

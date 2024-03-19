@@ -40,10 +40,12 @@ def load_datas(prefix):
 patterns = [ "/" , "\\" , "|" , "-" , "+" , "x", "o", "O", ".", "*" ]
 colors = ["slategray", "royalblue", "orange", "slategray", "royalblue", "orange"]
 datas = ["rootful-pfd", "rootless-pfd", "b4ns-pfd", "rootful-vxlan", "rootless-vxlan", "b4ns-multinode"]
-labels=['blk-1k', 'blk-32k', 'blk-512k', 'blk-1m', 'blk-32m', 'blk-128m', 'blk-512m', 'blk-1g']
-labels_plot=['1KiB', '32KiB', '512KiB', '1MiB', '32MiB', '128MiB', '512MiB', '1GiB']
+#labels=['blk-1k', 'blk-32k', 'blk-512k', 'blk-1m', 'blk-32m', 'blk-128m', 'blk-512m', 'blk-1g']
+#labels_plot=['1KiB', '32KiB', '512KiB', '1MiB', '32MiB', '128MiB', '512MiB', '1GiB']
+labels=['blk-32k', 'blk-512k', 'blk-1m','blk-128m', 'blk-512m', 'blk-1g']
+labels_plot=['32KiB', '512KiB', '1MiB', '128MiB', '512MiB', '1GiB']
 
-plt.rcParams["figure.figsize"] = (8,5)
+plt.rcParams["figure.figsize"] = (6.5,5)
 plt.rcParams["font.size"] = 18
 plt.ylabel("Throughput (Gbps)")
 plt.xlabel("File size", fontsize=16)
@@ -56,13 +58,15 @@ for i in order:
     data = load_datas(name)
     value = []
     for l in labels:
+        if l == "blk-1g":
+            print("name={} data={} value={}".format(name, l, data[l]))
         value.append(data[l])
     plt.bar([x*factor+(BAR_WIDTH*i) for x in range(0, len(labels))], value, align="edge",  edgecolor="black", linewidth=1, width=BAR_WIDTH, label=name, color=colors[i], hatch=patterns[i]*3)
 
-plt.legend(loc='upper center', bbox_to_anchor=(.5, -.15), ncol=len(datas)/2, fontsize=12)
+plt.legend(loc='upper center', bbox_to_anchor=(.45, -.15), ncol=len(datas)/2, fontsize=12)
 plt.xlim(0, (len(labels)-1)*factor+BAR_WIDTH*data_num)
 plt.xticks([x*factor+BAR_WIDTH*data_num/2 for x in range(0, len(labels))], labels_plot, fontsize=14)
 plt.tight_layout()
 
-plt.savefig("block.png")
+plt.savefig("block.png", dpi=400)
 plt.savefig("block.pdf")

@@ -14,7 +14,7 @@ def load_data(filename):
         while line:
             line = re.sub('\s+', ' ', line.strip()).split(" ")
             if "transactions:" in line:
-                data["transactions"] = float(line[2].replace("(", ""))
+                data["TXs"] = float(line[2].replace("(", ""))
             if "queries:" in line:
                 data["queries"] = float(line[2].replace("(", ""))
             if "avg:" in line:
@@ -41,9 +41,10 @@ def load_datas(prefix):
 patterns = [ "/" , "\\" , "|" , "-" , "+" , "x", "o", "O", ".", "*" ]
 colors = ["slategray", "royalblue", "orange", "slategray", "royalblue", "orange"]
 data_files = ["rootful-pfd", "rootless-pfd", "b4ns-pfd", "rootful-vxlan", "rootless-vxlan", "b4ns-multinode"]
-labels=['transactions', 'queries', 'latency(ms)']
+labels=['TXs', 'queries', 'latency(ms)']
 
 plt.rcParams["font.size"] = 18
+plt.rcParams["figure.figsize"] = (6.0,5)
 data_num = len(data_files) 
 factor = (data_num+1) * BAR_WIDTH
 
@@ -68,10 +69,10 @@ for i in order:
     ax2.bar([factor*2+BAR_WIDTH*i], datas[i][labels[2]], align="edge",  edgecolor="black", linewidth=1, width=BAR_WIDTH, label=name, color=colors[i], hatch=patterns[i]*3)
 
 h1, l1 = ax1.get_legend_handles_labels()
-ax1.legend(h1, l1, loc='upper center', bbox_to_anchor=(.5, -.10), ncol=len(data_files)/2, fontsize=12)
+ax1.legend(h1, l1, loc='upper center', bbox_to_anchor=(.45, -.10), ncol=len(data_files)/2, fontsize=12)
 plt.xlim(0, (len(labels)-1)*factor+BAR_WIDTH*data_num)
 plt.xticks([x*factor+BAR_WIDTH*data_num/2 for x in range(0, len(labels))], labels)
 plt.tight_layout()
 
-plt.savefig("mysql.png")
+plt.savefig("mysql.png", dpi=400)
 plt.savefig("mysql.pdf")
